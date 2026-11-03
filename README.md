@@ -2,11 +2,8 @@
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0:00aaff,100:0055ff&height=200&section=header&text=ITSFOUR&fontSize=60&fontColor=ffffff&fontAlignY=38&desc=Personal%20Website&descSize=22&descAlignY=60" width="100%" alt="itsfour personal website banner">
   <br>
   <img src="./img/itsfourvn.svg" width="150" alt="itsfour animated name">
-  <br><br>
-
+  <br> <br>
   <p>
-    [![Netlify Status](https://api.netlify.com/api/v1/badges/e7548ae3-b197-40fd-ab49-c52d8b098124/deploy-status)](https://app.netlify.com/projects/thientu/deploys)
-  <br>
     <img src="https://img.shields.io/badge/Platform-Web-00aaff?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Web platform">
     <a href="LICENSE"><img src="https://img.shields.io/badge/License-AGPL--3.0-blue?style=for-the-badge&logo=gnu" alt="GNU Affero General Public License v3.0"></a>
   </p>
