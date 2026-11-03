@@ -5,7 +5,7 @@
   <br><br>
 
   <p>
-    <a href="https://app.netlify.com/projects/thientu/deploys"><img src="https://api.netlify.com/api/v1/badges/3d0940b2-ea7e-4120-bf69-a78c7b3ea358/deploy-status" alt="Netlify deploy status"></a>
+    [![Netlify Status](https://api.netlify.com/api/v1/badges/e7548ae3-b197-40fd-ab49-c52d8b098124/deploy-status)](https://app.netlify.com/projects/thientu/deploys)
   <br>
     <img src="https://img.shields.io/badge/Platform-Web-00aaff?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Web platform">
     <a href="LICENSE"><img src="https://img.shields.io/badge/License-AGPL--3.0-blue?style=for-the-badge&logo=gnu" alt="GNU Affero General Public License v3.0"></a>
