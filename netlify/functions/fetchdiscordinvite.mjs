@@ -1,6 +1,6 @@
 const INVITE_CODE = '8chgr3Ad';
 
-export async function onRequestGet() {
+export default async function handler() {
     try {
         const response = await fetch(`https://discord.com/api/v10/invites/${INVITE_CODE}?with_counts=true`, {
             headers: { accept: 'application/json' }
@@ -25,3 +25,8 @@ export async function onRequestGet() {
         return Response.json({ error: 'Discord invite unavailable' }, { status: 502 });
     }
 }
+
+export const config = {
+    path: '/fetchdiscordinvite',
+    method: ['GET']
+};

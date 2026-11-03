@@ -1,4 +1,4 @@
-export async function onRequestGet() {
+export default async function handler() {
     const response = await fetch('https://api.lanyard.rest/v1/users/458318691172352012');
     if (!response.ok) {
         return Response.json({ error: 'Discord presence unavailable' }, { status: 502 });
@@ -11,3 +11,8 @@ export async function onRequestGet() {
         activities: data.activities
     }, { headers: { 'cache-control': 'no-store' } });
 }
+
+export const config = {
+    path: '/fetchlanyard',
+    method: ['GET']
+};

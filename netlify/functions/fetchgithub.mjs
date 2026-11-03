@@ -1,25 +1,31 @@
-export async function onRequestGet({ env, request, waitUntil }) {
-    if (!env.GITHUB_TOKEN) {
+import { getStore } from '@netlify/blobs';
+
+export default async function handler() {
+    const token = process.env.GITHUB_TOKEN;
+    if (!token) {
         return jsonResponse({ error: 'GITHUB_TOKEN is not configured.' }, 503);
     }
 
-    let result = await caches.default.match(request.url);
-    if (result) {
-        result = await result.json();
-        if (!result || result.version !== 5 || !Array.isArray(result.repositories) ||
-            !Array.isArray(result.stats) || !Array.isArray(result.languages)) result = null;
-    }
-
-    if (!result) {
-        result = await fetchData(env);
-        waitUntil(updateCache(request.url, result));
+    const store = getStore('github-profile-cache');
+    const cached = await store.get('profile', { type: 'json' });
+    let result = cached?.expiresAt > Date.now() ? cached.data : null;
+    if (!result || result.version !== 5 || !Array.isArray(result.repositories) ||
+        !Array.isArray(result.stats) || !Array.isArray(result.languages)) {
+        result = await fetchData(token);
+        await store.setJSON('profile', { expiresAt: Date.now() + 3600000, data: result });
     }
 
     return jsonResponse(result);
 }
 
-function jsonResponse(data) {
+export const config = {
+    path: '/fetchgithub',
+    method: ['GET']
+};
+
+function jsonResponse(data, status = 200) {
     return new Response(JSON.stringify(data), {
+        status,
         headers: {
             'content-type': 'application/json',
             'cache-control': 'no-cache, no-store, must-revalidate, max-age=0'
@@ -27,7 +33,7 @@ function jsonResponse(data) {
     });
 }
 
-async function fetchData(env) {
+async function fetchData(token) {
     const repositoryQuery = `query($after: String) {
         user(login: "itsfourvn") {
             id
@@ -58,7 +64,7 @@ async function fetchData(env) {
     let hasNextPage = true;
 
     while (hasNextPage) {
-        const data = await fetchGitHubGraphQL(env, repositoryQuery, { after: cursor });
+        const data = await fetchGitHubGraphQL(token, repositoryQuery, { after: cursor });
         const user = data.user;
         if (!user?.repositories?.pageInfo) throw new Error('GitHub did not return repository data.');
 
@@ -78,7 +84,7 @@ async function fetchData(env) {
         }`);
     }
 
-    const contributionData = await fetchGitHubGraphQL(env, `{
+    const contributionData = await fetchGitHubGraphQL(token, `{
         user(login: "itsfourvn") { ${yearFields.join('\n')} }
     }`);
     const contributedRepositories = new Set();
@@ -95,8 +101,8 @@ async function fetchData(env) {
     }
 
     const [linesChanged, repositoryViews, languages] = await Promise.all([
-        getLinesChanged(env, repositories, profile.id),
-        getRepositoryViews(env, repositories),
+        getLinesChanged(token, repositories, profile.id),
+        getRepositoryViews(token, repositories),
         getGitHubLanguages()
     ]);
     const stats = [
@@ -110,12 +116,12 @@ async function fetchData(env) {
     return { version: 5, repositories, stats, languages };
 }
 
-async function fetchGitHubGraphQL(env, query, variables = {}) {
+async function fetchGitHubGraphQL(token, query, variables = {}) {
     const response = await fetch('https://api.github.com/graphql', {
         method: 'POST',
         headers: {
             'accept': 'application/json',
-            'authorization': `bearer ${env.GITHUB_TOKEN}`,
+            'authorization': `bearer ${token}`,
             'user-agent': 'itsfourvn-site'
         },
         body: JSON.stringify({ query, variables })
@@ -128,14 +134,14 @@ async function fetchGitHubGraphQL(env, query, variables = {}) {
     return payload.data;
 }
 
-async function getLinesChanged(env, repositories, authorId) {
+async function getLinesChanged(token, repositories, authorId) {
     const changes = await Promise.all(repositories.map(async repository => {
         let total = 0;
         let cursor = null;
         let hasNextPage = true;
 
         while (hasNextPage) {
-            const data = await fetchGitHubGraphQL(env, `query($owner: String!, $name: String!, $authorId: ID!, $after: String) {
+            const data = await fetchGitHubGraphQL(token, `query($owner: String!, $name: String!, $authorId: ID!, $after: String) {
                 repository(owner: $owner, name: $name) {
                     defaultBranchRef {
                         target {
@@ -167,12 +173,12 @@ async function getLinesChanged(env, repositories, authorId) {
     return changes.reduce((sum, value) => sum + value, 0);
 }
 
-async function getRepositoryViews(env, repositories) {
+async function getRepositoryViews(token, repositories) {
     const views = await Promise.all(repositories.map(async repository => {
         const response = await fetch(`https://api.github.com/repos/itsfourvn/${encodeURIComponent(repository.name)}/traffic/views`, {
             headers: {
                 'accept': 'application/vnd.github+json',
-                'authorization': `Bearer ${env.GITHUB_TOKEN}`,
+                'authorization': `bearer ${token}`,
                 'user-agent': 'itsfourvn-site',
                 'X-GitHub-Api-Version': '2022-11-28'
             }
@@ -241,14 +247,4 @@ function decodeHtml(value) {
             ? String.fromCodePoint(number)
             : entity;
     });
-}
-
-async function updateCache(url, data) {
-    if (data === undefined) return;
-    await caches.default.put(url, new Response(JSON.stringify(data), {
-        headers: {
-            'content-type': 'application/json',
-            'cache-control': 'public, max-age=3600'
-        }
-    }));
 }

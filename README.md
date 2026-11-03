@@ -31,12 +31,6 @@
 - **Netlify Functions** — Visitor counter, profile data, Discord information, and image endpoint.
 - **Responsive interface** — Designed for both desktop and mobile screens.
 
-## 🖼️ Preview
-
-<div align="center">
-  <img src="./img/preview.png" width="85%" alt="Preview of the itsfour personal website">
-</div>
-
 ## 🧰 Built with
 
 - HTML, CSS, and JavaScript
