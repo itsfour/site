@@ -224,7 +224,6 @@ document.querySelector('.arrow svg').addEventListener('click', () => {
     window.scrollTo({ top: innerHeight * 0.3, behavior: 'smooth' });
 });
 
-const DISCORD_ID = '458318691172352012';
 const discordWidget = document.querySelector('.discord');
 
 function renderDiscord(presence) {
@@ -290,7 +289,7 @@ if (discordInviteCard) {
         });
 }
 
-function connectDiscordPresence() {
+function connectDiscordPresence(discordId) {
     const socket = new WebSocket('wss://api.lanyard.rest/socket');
     let heartbeat;
 
@@ -300,7 +299,7 @@ function connectDiscordPresence() {
             heartbeat = setInterval(() => {
                 if (socket.readyState === WebSocket.OPEN) socket.send(JSON.stringify({ op: 3 }));
             }, message.d.heartbeat_interval);
-            socket.send(JSON.stringify({ op: 2, d: { subscribe_to_id: DISCORD_ID } }));
+            socket.send(JSON.stringify({ op: 2, d: { subscribe_to_id: discordId } }));
             return;
         }
         if (message.t === 'INIT_STATE' || message.t === 'PRESENCE_UPDATE') renderDiscord(message.d);
@@ -308,12 +307,14 @@ function connectDiscordPresence() {
 
     socket.addEventListener('close', () => {
         clearInterval(heartbeat);
-        setTimeout(connectDiscordPresence, 5000);
+        setTimeout(() => connectDiscordPresence(discordId), 5000);
     });
     socket.addEventListener('error', () => socket.close());
 }
 
-connectDiscordPresence();
+import('/site-config.mjs')
+    .then(({ siteConfig }) => connectDiscordPresence(siteConfig.discord.userId))
+    .catch(error => console.error('Unable to load site configuration:', error));
 const githubProjects = document.querySelector('#github-projects');
 const githubProjectTemplate = githubProjects?.querySelector('.project')?.cloneNode(true);
 if (githubProjects) {
@@ -352,7 +353,7 @@ fetch('/fetchgithub').then(async response => {
         const card = githubProjectTemplate.cloneNode(true);
         const link = card.querySelector('a');
         link.href = repository.url;
-        link.querySelector('.bold').textContent = `itsfourvn/${repository.name}`;
+        link.querySelector('.bold').textContent = new URL(repository.url).pathname.slice(1);
         link.querySelector('.opaque').textContent = repository.description || 'No description';
         card.querySelector('.star').textContent = repository.stargazerCount;
         card.querySelector('.fork').textContent = repository.forkCount;

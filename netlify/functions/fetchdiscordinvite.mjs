@@ -1,8 +1,8 @@
-const INVITE_CODE = '8chgr3Ad';
+import { siteConfig } from '../../site-config.mjs';
 
 export default async function handler() {
     try {
-        const response = await fetch(`https://discord.com/api/v10/invites/${INVITE_CODE}?with_counts=true`, {
+        const response = await fetch(`https://discord.com/api/v10/invites/${siteConfig.discord.inviteCode}?with_counts=true`, {
             headers: { accept: 'application/json' }
         });
         const invite = await response.json();

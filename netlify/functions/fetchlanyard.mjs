@@ -1,5 +1,7 @@
+import { siteConfig } from '../../site-config.mjs';
+
 export default async function handler() {
-    const response = await fetch('https://api.lanyard.rest/v1/users/458318691172352012');
+    const response = await fetch(`https://api.lanyard.rest/v1/users/${siteConfig.discord.userId}`);
     if (!response.ok) {
         return Response.json({ error: 'Discord presence unavailable' }, { status: 502 });
     }

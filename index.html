@@ -7,7 +7,7 @@
     <link rel="icon" href="/img/favicon.ico">
     <meta name="description" content="Hi! I'm itsfour, a dude from Vietnam :3">
     <meta name="theme-color" content="#00a9ff">
-    <meta property="og:site_name" content="itsfourvn">
+    <meta property="og:site_name" content="itsfour">
     <meta property="og:image" content="/img/preview.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="google-site-verification" content="QnPzHT-3k8oi0acqMvSozJjSGyAgimpbAop5WpEQ_Oc">
@@ -56,7 +56,7 @@
     <div class="main-container">
         <main>
             <div class="widget">
-                <a href="https://github.com/itsfourvn">
+                <a data-site-link="github" href="https://github.com/itsfour">
                     <div class="content">
                         <div class="icon" style="background-color: #000;">
                             <svg fill="currentColor" viewBox="0 0 496 512">
@@ -65,13 +65,13 @@
                         </div>
                         <div class="meta">
                             <div class="bold">GitHub</div>
-                            <div class="opaque">@itsfourvn</div>
+                            <div class="opaque" data-site-label="github.username">@itsfour</div>
                         </div>
                     </div>
                 </a>
             </div>
             <div class="widget">
-                <a href="https://discord.com/users/458318691172352012">
+                <a data-site-link="discord" href="https://discord.com/users/458318691172352012">
                     <div class="content">
                         <div class="icon" style="background-color: #56f;">
                             <svg fill="currentColor" viewBox="0 0 640 512">
@@ -80,14 +80,14 @@
                         </div>
                         <div class="meta">
                             <div class="bold">Discord</div>
-                            <div class="opaque">@_itsfour</div>
+                            <div class="opaque" data-site-label="discord.username">@_itsfour</div>
                         </div>
                     </div>
                 </a>
             </div>
 
             <div class="widget">
-                <a href="https://www.facebook.com/itsthientu/">
+                <a data-site-link="facebook" href="https://www.facebook.com/itsthientu/">
                     <div class="content">
                         <div class="icon" style="background-color: #17f; --size: 100%;">
                             <svg fill="currentColor" viewBox="1 1 21 21">
@@ -96,14 +96,14 @@
                         </div>
                         <div class="meta">
                             <div class="bold">Facebook</div>
-                            <div class="opaque">@itsthientu</div>
+                            <div class="opaque" data-site-label="facebook.username">@itsthientu</div>
                         </div>
                     </div>
                 </a>
             </div>
 
             <div class="widget">
-                <a href="https://www.tiktok.com/@itsfourvn">
+                <a data-site-link="tiktok" href="https://www.tiktok.com/@itsfourvn">
                     <div class="content">
                         <div class="icon" style="background-color: #000; --size: 90%;">
                             <svg viewBox="0 0 24 24">
@@ -114,7 +114,7 @@
                         </div>
                         <div class="meta">
                             <div class="bold">TikTok</div>
-                            <div class="opaque">@itsfourvn</div>
+                            <div class="opaque" data-site-label="tiktok.username">@itsfourvn</div>
                         </div>
                     </div>
                 </a>
@@ -244,8 +244,8 @@
                             <span><i class="online-dot"></i><span class="discord-online-count">—</span> Online</span>
                             <span><i class="member-dot"></i><span class="discord-member-count">—</span> Members</span>
                         </div>
-                        <a class="discord-invite-action primary" href="discord://-/invite/8chgr3Ad">Open App</a>
-                        <a class="discord-invite-action" href="https://discord.com/invite/8chgr3Ad" target="_blank" rel="noopener">Continue in Browser</a>
+                        <a class="discord-invite-action primary" data-site-link="discord-app-invite" href="discord://-/invite/8chgr3Ad">Open App</a>
+                        <a class="discord-invite-action" data-site-link="discord-invite" href="https://discord.com/invite/8chgr3Ad" target="_blank" rel="noopener">Continue in Browser</a>
                     </div>
                 </div>
             </div>
@@ -277,14 +277,14 @@
             </div>
 
             <div class="widget" style="--columns: 4; --rows: 4; --m-columns: 4; --m-rows: 2;">
-                <a href="/chino" aria-label="Chino Kafuu">
+                <a href="/img/show.avif" aria-label="Chino Kafuu">
                     <div class="image" style="--bg: url('/img/show.avif'); background-size: cover;"></div>
                 </a>
             </div>
 
 
             <div class="widget" style="--columns: 4; --rows: 1;">
-                <a href="mailto:itsfour.932@gmail.com">
+                <a data-site-link="email" href="mailto:itsfour.932@gmail.com">
                     <div class="content">
                         <div class="icon" style="background-color: #48d; --size: 60%;">
                             <svg fill="currentColor" viewBox="0 0 24 24">
@@ -293,7 +293,7 @@
                         </div>
                         <div class="meta">
                             <div class="bold">Email</div>
-                            <div class="opaque">itsfour.932@gmail.com</div>
+                            <div class="opaque" data-site-label="email">itsfour.932@gmail.com</div>
                         </div>
                     </div>
                 </a>
@@ -340,8 +340,8 @@
 
         <aside id="github-projects" aria-label="GitHub repositories">
             <div class="project">
-                <a href="https://github.com/itsfourvn/site">
-                    <div class="bold">itsfourvn/itsfourvn.site</div>
+                <a data-github-repo="site" href="https://github.com/itsfour/site">
+                    <div class="bold" data-github-owner-label>itsfour/site</div>
                     <div class="opaque">My website</div>
                     <div class="meta">
                         <div>
@@ -365,8 +365,8 @@
             </div>
 
             <div class="project">
-                <a href="https://github.com/itsfourvn/Chill-House-Discord-Botb">
-                    <div class="bold">itsfourvn/dsc-bot-chillhouse</div>
+                <a data-github-repo="Chill-House-Discord-Botb" href="https://github.com/itsfour/Chill-House-Discord-Botb">
+                    <div class="bold" data-github-owner-label>itsfour/dsc-bot-chillhouse</div>
                     <div class="opaque">a stella sora database</div>
                     <div class="meta">
                         <div>
@@ -390,8 +390,8 @@
             </div>
 
             <div class="project">
-                <a href="https://github.com/itsfourvn/itsfourvn">
-                    <div class="bold">itsfourvn/user-profile-readme</div>
+                <a data-github-repo="itsfour" href="https://github.com/itsfour/itsfour">
+                    <div class="bold" data-github-owner-label>itsfour/user-profile-readme</div>
                     <div class="opaque">My Vencord userplugins folder</div>
                     <div class="meta">
                         <div>
@@ -415,8 +415,8 @@
             </div>
 
             <div class="project">
-                <a href="https://github.com/itsfourvn/itsfourvn">
-                    <div class="bold">itsfourvn/themes</div>
+                <a data-github-repo="itsfour" href="https://github.com/itsfour/itsfour">
+                    <div class="bold" data-github-owner-label>itsfour/themes</div>
                     <div class="opaque">My Vencord themes folder</div>
                     <div class="meta">
                         <div>
@@ -440,8 +440,8 @@
             </div>
 
             <div class="project">
-                <a href="https://github.com/itsfourvn/itsfourvn">
-                    <div class="bold">itsfourvn/highlight</div>
+                <a data-github-repo="itsfour" href="https://github.com/itsfour/itsfour">
+                    <div class="bold" data-github-owner-label>itsfour/highlight</div>
                     <div class="opaque">Highlight & beautify raw code text extension</div>
                     <div class="meta">
                         <div>
@@ -465,8 +465,8 @@
             </div>
 
             <div class="project">
-                <a href="https://github.com/itsfourvn/itsfourvn">
-                    <div class="bold">itsfourvn/userscript</div>
+                <a data-github-repo="itsfour" href="https://github.com/itsfour/itsfour">
+                    <div class="bold" data-github-owner-label>itsfour/userscript</div>
                     <div class="opaque">My userscript</div>
                     <div class="meta">
                         <div>
@@ -490,8 +490,8 @@
             </div>
 
             <div class="project">
-                <a href="https://github.com/itsfourvn/itsfourvn">
-                    <div class="bold">itsfourvn/autumn</div>
+                <a data-github-repo="itsfour" href="https://github.com/itsfour/itsfour">
+                    <div class="bold" data-github-owner-label>itsfour/autumn</div>
                     <div class="opaque">My client-side Fabric mod</div>
                     <div class="meta">
                         <div>
@@ -515,8 +515,8 @@
             </div>
 
             <div class="project">
-                <a href="https://github.com/itsfourvn/itsfourvn">
-                    <div class="bold">itsfourvn/osu-mpbd</div>
+                <a data-github-repo="itsfour" href="https://github.com/itsfour/itsfour">
+                    <div class="bold" data-github-owner-label>itsfour/osu-mpbd</div>
                     <div class="opaque">osu! most played beatmap downloader</div>
                     <div class="meta">
                         <div>
@@ -540,8 +540,8 @@
             </div>
 
             <div class="project">
-                <a href="https://github.com/itsfourvn/osu-ubu">
-                    <div class="bold">itsfourvn/osu-ubu</div>
+                <a data-github-repo="osu-ubu" href="https://github.com/itsfour/osu-ubu">
+                    <div class="bold" data-github-owner-label>itsfour/osu-ubu</div>
                     <div class="opaque">osu! unranked beatmap updater</div>
                     <div class="meta">
                         <div>
@@ -565,8 +565,8 @@
             </div>
 
             <div class="project">
-                <a href="https://github.com/itsfourvn/Chill-House-Discord-Bot">
-                    <div class="bold">itsfourvn/bot</div>
+                <a data-github-repo="Chill-House-Discord-Bot" href="https://github.com/itsfour/Chill-House-Discord-Bot">
+                    <div class="bold" data-github-owner-label>itsfour/bot</div>
                     <div class="opaque">My Discord bot for random thing I want</div>
                     <div class="meta">
                         <div>
@@ -593,16 +593,20 @@
 
     <footer>
         <div class="footer-container">
-            <span>☆ | © xlingg 2026</span>
+            <span class="footer-mark" aria-hidden="true">✦</span>
+            <span>© 2026 itsfour</span>
+            <span class="footer-divider" aria-hidden="true"></span>
+            <a data-site-link="github" href="https://github.com/itsfour">GitHub</a>
         </div>
     </footer>
 
-    <a class="facebook-chat-button" href="https://m.me/itsthientu" target="_blank" rel="noopener noreferrer" aria-label="Chat with me on Facebook Messenger">
+    <a class="facebook-chat-button" data-site-link="messenger" href="https://m.me/itsthientu" target="_blank" rel="noopener noreferrer" aria-label="Chat with me on Facebook Messenger">
         <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M12 2C6.48 2 2 6.15 2 11.27c0 2.92 1.46 5.52 3.75 7.22V22l3.43-1.88c.9.25 1.85.39 2.82.39 5.52 0 10-4.15 10-9.24S17.52 2 12 2Zm1 12.45-2.55-2.72-4.98 2.72 5.48-5.82 2.61 2.72 4.92-2.72L13 14.45Z"></path>
         </svg>
     </a>
 
+    <script type="module" src="/site-config.mjs"></script>
     <script defer src="/index.js"></script>
     <script defer src="/min.js"></script>
 </body>

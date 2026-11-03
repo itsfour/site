@@ -11,7 +11,7 @@
   </p>
 
   <p>
-    <a href="https://github.com/itsfourvn"><img src="https://img.shields.io/badge/Personal-Portfolio-0055ff?style=for-the-badge&logo=github&logoColor=white" alt="Personal portfolio"></a>
+    <a href="https://github.com/itsfour"><img src="https://img.shields.io/badge/Personal-Portfolio-0055ff?style=for-the-badge&logo=github&logoColor=white" alt="Personal portfolio"></a>
     <img src="https://img.shields.io/badge/Hosted%20on-Netlify-00c7b7?style=for-the-badge&logo=netlify&logoColor=white" alt="Hosted on Netlify">
   </p>
 
@@ -28,7 +28,7 @@
 - **Discord integration** — Live presence and server invite preview.
 - **Music player** — Browse and play tracks from the site's music collection.
 - **Video backgrounds** — Media manifests are generated from the files in the repository.
-- **Netlify Functions** — Visitor counter, profile data, Discord information, and image endpoint.
+- **Netlify Functions** — Visitor counter, GitHub profile data, and Discord information.
 - **Responsive interface** — Designed for both desktop and mobile screens.
 
 ## 🧰 Built with
@@ -43,6 +43,8 @@
 npm install
 npm run dev
 ```
+
+Update social usernames and links in [`site-config.mjs`](./site-config.mjs). The main site and related Netlify Functions use this shared configuration.
 
 For the GitHub profile function, add a token to the root `.dev.vars` file:
 
@@ -70,12 +72,11 @@ Add `GITHUB_TOKEN` in the Netlify project's environment variables for the `/fetc
 | `/fetchdiscordinvite` | Loads Discord invite information |
 | `/fetchlanyard` | Loads Discord presence |
 | `/fetchgithub` | Loads GitHub profile data |
-| `/chino` | Returns a random image |
 
 ## 📄 License
 
-Copyright © 2026 itsfourvn. This project is licensed under the [GNU Affero General Public License v3.0](./LICENSE).
+Copyright © 2026 itsfour. This project is licensed under the [GNU Affero General Public License v3.0](./LICENSE).
 
 <div align="center">
-  <sub>Made with care by <a href="https://github.com/itsfourvn">itsfourvn</a></sub>
+  <sub>Made with care by <a href="https://github.com/itsfour">itsfour</a></sub>
 </div>

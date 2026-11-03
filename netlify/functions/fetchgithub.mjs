@@ -1,4 +1,5 @@
 import { getStore } from '@netlify/blobs';
+import { siteConfig } from '../../site-config.mjs';
 
 export default async function handler() {
     const token = process.env.GITHUB_TOKEN;
@@ -7,12 +8,13 @@ export default async function handler() {
     }
 
     const store = getStore('github-profile-cache');
-    const cached = await store.get('profile', { type: 'json' });
+    const cacheKey = `${siteConfig.github.username}-profile`;
+    const cached = await store.get(cacheKey, { type: 'json' });
     let result = cached?.expiresAt > Date.now() ? cached.data : null;
-    if (!result || result.version !== 5 || !Array.isArray(result.repositories) ||
+    if (!result || result.version !== 6 || !Array.isArray(result.repositories) ||
         !Array.isArray(result.stats) || !Array.isArray(result.languages)) {
         result = await fetchData(token);
-        await store.setJSON('profile', { expiresAt: Date.now() + 3600000, data: result });
+        await store.setJSON(cacheKey, { expiresAt: Date.now() + 3600000, data: result });
     }
 
     return jsonResponse(result);
@@ -35,7 +37,7 @@ function jsonResponse(data, status = 200) {
 
 async function fetchData(token) {
     const repositoryQuery = `query($after: String) {
-        user(login: "itsfourvn") {
+        user(login: "${siteConfig.github.username}") {
             id
             createdAt
             repositories(
@@ -85,7 +87,7 @@ async function fetchData(token) {
     }
 
     const contributionData = await fetchGitHubGraphQL(token, `{
-        user(login: "itsfourvn") { ${yearFields.join('\n')} }
+        user(login: "${siteConfig.github.username}") { ${yearFields.join('\n')} }
     }`);
     const contributedRepositories = new Set();
     let allTimeContributions = 0;
@@ -113,7 +115,7 @@ async function fetchData(token) {
         repositoryViews,
         contributedRepositories.size
     ];
-    return { version: 5, repositories, stats, languages };
+    return { version: 6, repositories, stats, languages };
 }
 
 async function fetchGitHubGraphQL(token, query, variables = {}) {
@@ -122,7 +124,7 @@ async function fetchGitHubGraphQL(token, query, variables = {}) {
         headers: {
             'accept': 'application/json',
             'authorization': `bearer ${token}`,
-            'user-agent': 'itsfourvn-site'
+            'user-agent': `${siteConfig.github.username}-site`
         },
         body: JSON.stringify({ query, variables })
     });
@@ -155,7 +157,7 @@ async function getLinesChanged(token, repositories, authorId) {
                     }
                 }
             }`, {
-                owner: 'itsfourvn',
+                owner: siteConfig.github.username,
                 name: repository.name,
                 authorId,
                 after: cursor
@@ -175,11 +177,11 @@ async function getLinesChanged(token, repositories, authorId) {
 
 async function getRepositoryViews(token, repositories) {
     const views = await Promise.all(repositories.map(async repository => {
-        const response = await fetch(`https://api.github.com/repos/itsfourvn/${encodeURIComponent(repository.name)}/traffic/views`, {
+        const response = await fetch(`https://api.github.com/repos/${siteConfig.github.username}/${encodeURIComponent(repository.name)}/traffic/views`, {
             headers: {
                 'accept': 'application/vnd.github+json',
                 'authorization': `bearer ${token}`,
-                'user-agent': 'itsfourvn-site',
+                'user-agent': `${siteConfig.github.username}-site`,
                 'X-GitHub-Api-Version': '2022-11-28'
             }
         });
@@ -198,8 +200,8 @@ async function getRepositoryViews(token, repositories) {
 }
 
 async function getGitHubLanguages() {
-    const response = await fetch('https://raw.githubusercontent.com/itsfourvn/itsfourvn/main/generated/languages.svg', {
-        headers: { 'user-agent': 'itsfourvn-site' }
+    const response = await fetch(`https://raw.githubusercontent.com/${siteConfig.github.username}/${siteConfig.github.username}/main/generated/languages.svg`, {
+        headers: { 'user-agent': `${siteConfig.github.username}-site` }
     });
     if (!response.ok) {
         throw new Error(`Failed to load generated GitHub language data: ${response.status}`);
