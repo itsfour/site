@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:00aaff,100:0055ff&height=100&section=header&text= Personal Website&fontSize=30&fontColor=ffffff" width="90%" alt="itsfour personal website banner">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:00aaff,100:0055ff&height=100&section=header&text=Personal%20Website&fontSize=30&fontColor=1d8ba1" width="90%" alt="itsfour personal website banner">
   <br>
     <img src="./img/itsfourvn.svg" width="300" alt="itsfour animated name">
 
