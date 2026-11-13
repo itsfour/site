@@ -13,6 +13,8 @@
     <img src="https://img.shields.io/badge/Hosted%20on-Netlify-00c7b7?style=for-the-badge&logo=netlify&logoColor=white" alt="Hosted on Netlify">
   </p>
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/48220a35-2b19-4cb8-8626-1b0d44cc3a6e/deploy-status)](https://app.netlify.com/projects/thientu/deploys)
+
   <p>A personal corner on the web, built to share projects, music, and a little bit of everyday life.</p>
 </div>
 
